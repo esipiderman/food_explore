@@ -1,16 +1,12 @@
 package com.example.foodexplore
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodexplore.databinding.ItemFoodBinding
+import com.example.foodexplore.room.Food
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 class MyAdapter(val data : ArrayList<Food>, private val foodEvents: FoodEvents) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
@@ -65,8 +61,8 @@ class MyAdapter(val data : ArrayList<Food>, private val foodEvents: FoodEvents) 
 
     fun addFood(newFood : Food){
 
-        data.add(0, newFood)
-        notifyItemInserted(0)
+        data += newFood
+        notifyItemInserted(data.size-1)
     }
 
     fun removeFood(oldFood : Food, pos : Int){
@@ -76,7 +72,7 @@ class MyAdapter(val data : ArrayList<Food>, private val foodEvents: FoodEvents) 
 
     }
 
-    fun updateFood(food:Food, pos: Int){
+    fun updateFood(food: Food, pos: Int){
 
         data[pos] = food
         notifyItemChanged(pos)
@@ -95,7 +91,7 @@ class MyAdapter(val data : ArrayList<Food>, private val foodEvents: FoodEvents) 
     interface FoodEvents {
 
         fun onFoodClicked(food: Food, pos: Int)
-        fun onFoodLongClicked(food :Food, pos : Int)
+        fun onFoodLongClicked(food : Food, pos : Int)
 
     }
 
